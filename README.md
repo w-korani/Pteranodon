@@ -29,26 +29,14 @@ The three steps may be repeated as needed.
 
 ## Example code
 ```
-bootstrap.sh -gfa TestProc.gfa  -t 4
+PteranodonBase.sh -t 4 -ref ref.genome -query query.genome \
+       -o PtrOut -SegLen 1000 -MinQueryLen 10 -ScafPer 0.1
 ```
 ```
-LibraryProc.sh -gfa TestProc.gfa -r1 fastqs/sample1.fq.gz -id S01 -t 4
-LibraryProc.sh -gfa TestProc.gfa -r1 fastqs/sample2.fq.gz -id S02 -t 4
-LibraryProc.sh -gfa TestProc.gfa -r1 fastqs/sample3.fq.gz -id S03 -t 4
+https://w-korani.shinyapps.io/pterandon_wings/
 ```
 ```
-CombineDS.sh -gam gams -gfa TestProc.gfa -min 1 -max 10 -o TestSet1.panmap -t 4 -l Set1.list
-```
-```
-panmapFilterMissingSample TestSet1.panmap 0.9
-panmapFilterMissingVariant TestSet1.Smiss0.9.panmap 0.75
-panmapFilterMAF TestSet1.Smiss0.9.miss0.75.panmap 0.05
-panmapGetDiAlleles TestSet1.Smiss0.9.miss0.75.MAF0.05.panmap
-panmapGetDiAlleles TestSet1.Smiss0.9.miss0.75.MAF0.05.DiAllelic.panmap
-panmapGetHomoPolymorphic TestSet1.Smiss0.9.miss0.75.MAF0.05.DiAllelic.DiAllelic.panmap
-panmapGetSV TestSet1.Smiss0.9.miss0.75.MAF0.05.DiAllelic.DiAllelic.HomoPolymorphic.panmap
-panmapAlleleFreqStats TestSet1.Smiss0.9.miss0.75.MAF0.05.DiAllelic.DiAllelic.HomoPolymorphic.SV.panmap > stat1
-hapmapAlleleTypeFreq TestSet1.Smiss0.9.miss0.75.MAF0.05.DiAllelic.DiAllelic.HomoPolymorphic.SV.panmap > stat2
+PteranodonRecurrent.sh -script PtrWinExec.sh -query query.genome -o query.genome.fa
 ```
 
 <div align="center">
