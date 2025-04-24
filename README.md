@@ -8,7 +8,7 @@ A tool for assemble contigs/scaffolds referenced to another genome
 
 <div align="center">
   <center><h1>Pteranodon</h1></center>
-  <img width="500" alt="Image" src="[https://github.com/user-attachments/assets/52299e9b-44ab-485b-9e9d-4735f32af7bf](https://github.com/user-attachments/assets/e905befa-2785-40e5-b0da-a11748ea1137)" />
+  <img width="500" alt="Image" src="https://github.com/user-attachments/assets/e905befa-2785-40e5-b0da-a11748ea1137" />
 </div>
 
 KhufuPAN is an open-source pipeline for highly efficient genotyping using pangenomes.
