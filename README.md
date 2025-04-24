@@ -74,7 +74,7 @@ The three steps may be repeated as needed.
 
 ## Example code
 ```
-PteranodonBase.sh -t 4 -ref ref.genome -query query.genome \
+PteranodonBase.sh -t 4 -ref ref.fa -query query.fa \
        -o PtrOut -SegLen 1000 -MinQueryLen 10 -ScafPer 0.1
 ```
 ```
