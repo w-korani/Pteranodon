@@ -4,33 +4,28 @@
   <img width="500" alt="Image" src="https://github.com/user-attachments/assets/e905befa-2785-40e5-b0da-a11748ea1137" />
 </div>
 
-KhufuPAN is an open-source pipeline for highly efficient genotyping using pangenomes.
-
 ## Requirements
 ### KhufuPAN
 - **KhufuEnv:** https://github.com/w-korani/KhufuEnv
-- **VG:** https://github.com/vgteam/vg
-- **KMC:** https://github.com/refresh-bio/KMC
+- **bwa:** https://bio-bwa.sourceforge.net/
 
 
 ## Implementation & Getting Help
 
-1. Bootstrap of the pangenome graph
+1. comparing the query genome to the reference genome and produce RDS object
    ```
-   bootstrap.sh -h
+   PteranodonBase.sh -h
    ```
-2. Processing of fastq libraries
+2. customizing the comparision of the RDS object usign Rshiny app.
    ```
-   LibraryProc.sh -h
+   https://w-korani.shinyapps.io/pterandon_wings/
    ```
-3. Combining a subset and filtering for sequencing depth
+3. executing the customization
    ```
-   CombineDS.sh -h
+   PteranodonRecurrent.sh -h
    ```
-4. Combining subsets and filtering for the pouplation structure
-   ```
-   KhufuEnvHelp
-   ```
+The three steps may be repeated as needed.
+
 
 ## Example code
 ```
@@ -62,6 +57,4 @@ hapmapAlleleTypeFreq TestSet1.Smiss0.9.miss0.75.MAF0.05.DiAllelic.DiAllelic.Homo
 
 
 ## Citation
-Long-Read Low-Pass Sequencing for High-Resolution Trait Mapping
-Kendall Lee, Walid Korani, Philip C. Bentz, Sameer Pokhrel, Peggy Ozias-Akins, Alex Harkess, Justin Vaughn, Josh Clevenger
-bioRxiv 2025.01.09.632261; doi: https://doi.org/10.1101/2025.01.09.632261
+comming soon
