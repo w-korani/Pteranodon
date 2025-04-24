@@ -40,7 +40,7 @@ PteranodonRecurrent.sh -script PtrWinExec.sh -query query.genome -o query.genome
 ```
 
 <div align="center">
-  <img width="500" alt="Image" src="https://github.com/user-attachments/assets/5ef2d8ff-e97b-4b97-a6f6-b63ba1a0b656" />
+  <img width="500" alt="" />
 </div>
 
 
