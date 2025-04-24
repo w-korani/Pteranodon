@@ -36,7 +36,7 @@ PteranodonBase.sh -t 4 -ref ref.genome -query query.genome \
 https://w-korani.shinyapps.io/pteranodonwingsv2/
 ```
 ```
-PteranodonRecurrent.sh -script PtrWinExec.sh -query query.genome -o query.genome.fa
+PteranodonRecurrent.sh -script PtrOut.sh -query query.genome -o query.genome.fa
 ```
 
 <div align="center">
