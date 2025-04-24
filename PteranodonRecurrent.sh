@@ -1,7 +1,5 @@
 #!/bin/bash -i
 ##################
-source /cluster/projects/khufu/korani_projects/KhufuEnv/KhufuEnv.sh
-source /cluster/projects/khufu/korani_projects/Pteranodon/scripts/utilities.sh
 ##################
 helpFunc()
 {
