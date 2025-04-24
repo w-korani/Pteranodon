@@ -18,7 +18,7 @@
    ```
 2. customizing the comparision of the RDS object usign Rshiny app.
    ```
-   https://w-korani.shinyapps.io/pterandon_wings/
+   https://w-korani.shinyapps.io/pteranodonwingsv2/
    ```
 3. executing the customization
    ```
@@ -33,7 +33,7 @@ PteranodonBase.sh -t 4 -ref ref.genome -query query.genome \
        -o PtrOut -SegLen 1000 -MinQueryLen 10 -ScafPer 0.1
 ```
 ```
-https://w-korani.shinyapps.io/pterandon_wings/
+https://w-korani.shinyapps.io/pteranodonwingsv2/
 ```
 ```
 PteranodonRecurrent.sh -script PtrWinExec.sh -query query.genome -o query.genome.fa
