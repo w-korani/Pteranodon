@@ -1,11 +1,3 @@
-# Pteranodon
-![Image](https://github.com/user-attachments/assets/e905befa-2785-40e5-b0da-a11748ea1137)
-
-
-A tool for assemble contigs/scaffolds referenced to another genome
-
-
-
 <div align="center">
   <center><h1>Pteranodon</h1></center>
   <center><h2>A tool for assemble contigs/scaffolds referenced to another genome</h2></center>
