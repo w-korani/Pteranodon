@@ -9,6 +9,51 @@
 - **KhufuEnv:** https://github.com/w-korani/KhufuEnv
 - **bwa:** https://bio-bwa.sourceforge.net/
 
+## Installation
+
+1. Download the package.
+   ```
+   git clone https://github.com/w-korani/Pteranodon
+   ```
+2. Go to the package folder.
+   ```
+   cd Pteranodon_main
+   ```
+3. Run the installer.
+   ```
+   sudo bash ./installer.sh
+   ```
+4. Add the source for the Bash Shell Environment.
+   ```
+   echo "source /etc/Pteranodon/call.sh"  >>  ~/.bashrc
+   ```
+5. Refresh the Bash Shell Environment.
+   ```
+   . ~/.bashrc
+   ```
+
+
+## Uninstallation
+1. Go to the package folder.
+   ```
+   cd Pteranodon_main
+   ```
+2. Run the uninstaller.
+   ```
+   sudo bash ./uninstaller.sh
+   ```
+3. Remove the source for the Bash Shell Environment.
+   ```
+   sed -i "/^source \/etc\/Pteranodon\/call.sh$/d"  ~/.bashrc
+   ```
+4. Refresh the Bash Shell Environment.
+   ```
+   . ~/.bashrc  
+   ```
+   or
+   ```
+   exec bash
+   ```
 
 ## Implementation & Getting Help
 
