@@ -1,6 +1,6 @@
 <div align="center">
   <center><h1>Pteranodon</h1></center>
-  <center><h2>A tool for assemble contigs/scaffolds referenced to another genome</h2></center>
+  <center><h2>A tool for assembly of contigs/scaffolds referenced to another genome</h2></center>
   <img width="500" alt="Image" src="https://github.com/user-attachments/assets/e905befa-2785-40e5-b0da-a11748ea1137" />
 </div>
 
