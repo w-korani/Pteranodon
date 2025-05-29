@@ -17,7 +17,7 @@
    ```
 2. Go to the package folder.
    ```
-   cd Pteranodon_main
+   cd Pteranodon
    ```
 3. Run the installer.
    ```
