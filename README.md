@@ -57,7 +57,7 @@
 
 ## Implementation
 
-Pteranodon is a three-step process comprising an initial bash script, an interactive R Shiny Application, and a final bash script that outputs a corrected FASTA file. The initial bash script also has an option to perform the functions of the R Shiny App and final bash script automatically, so 
+Pteranodon is a three-step process comprising an initial bash script, an interactive R Shiny Application, and a final bash script that outputs a corrected FASTA file. The initial bash script also has an option to perform the functions of the R Shiny App and final bash script automatically, which is described in the tutorial below. 
 
 1. PteranodonBase.sh: Align a reference FASTA file with a query FASTA file and produce an RDS file for interactive editing.
    ```
