@@ -57,7 +57,7 @@
 
 ## Implementation
 
-Pteranodon is a three-step process comprising an initial bash script, an interactive R Shiny Application, and a final bash script that outputs a corrected FASTA file.
+Pteranodon is a three-step process comprising an initial bash script, an interactive R Shiny Application, and a final bash script that outputs a corrected FASTA file. The initial bash script also has an option to perform the functions of the R Shiny App and final bash script automatically, so 
 
 1. PteranodonBase.sh: Align a reference FASTA file with a query FASTA file and produce an RDS file for interactive editing.
    ```
@@ -72,7 +72,7 @@ Pteranodon is a three-step process comprising an initial bash script, an interac
    -auto        # automatically assemble contigs and produce a FASTA file (automating steps 2 and 3 below)
    -h           # display help function
    ```
-2. Pteranodon Wings v2: https://w-korani.shinyapps.io/pteranodonwingsv2/.
+2. Pteranodon Wings v2: https://w-korani.shinyapps.io/pteranodonwingsv2/
 
 Split, invert, and join contigs using point-and-click tools in an R Shiny App. The selected edits will generate a set of commands in a .sh file for download and use in the next step. A step-by-step guide of the app functionality can be found in the example code below.
 
@@ -150,9 +150,10 @@ PteranodonBase.sh -ref ref.fa -query query.fa -o test_out -SegLen 1000 -MinQuery
 PteranodonRecurrent.sh -script data-2025-05-30.sh -query query.fa -o recurrent_test_out.fa
 ```
 
-
-
-
+12. Alternatively, the initial script PteranodonBase.sh can be run with a flag -auto 1 that will automate all three components of Pteranodon, essentially performing for you the manual steps done in Pteranodon Wings and PteranodonRecurrent.sh. The script will output both an .rds file and a .fa file with assembled contigs. If further changes are needed, the .rds file can be opened in Pteranodon Wings for manual editing.
+```
+PteranodonBase.sh -ref ref.fa -query query.fa -o test_out_auto -SegLen 1000 -MinQueryLen 3 -ScafPer 0.2 -auto 1
+```
 
 ## Citation
 Pteranodon is currently in pre-publication.
