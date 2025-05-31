@@ -3,7 +3,6 @@
 ##################
 helpFunc()
 {
-   "$khufu_dir"/utilities/logo.sh
    echo -e "Usage:         \033[46m$0 -script script -query query \033[0m
    \033[46m-/--script\033[0m   input script file produced by Pteranodon_wings
    \033[46m-/--query\033[0m scaffolds' or contigs' query fasta
