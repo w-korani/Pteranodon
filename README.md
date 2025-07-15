@@ -1,6 +1,6 @@
 <div align="center">
   <center><h1>Pteranodon</h1></center>
-  <center><h2>A tool for assembly of contigs/scaffolds referenced to another genome</h2></center>
+  <center><h2>A Reference-Guided Scaffolding Tool for Chromosome-Level Genome Assembly</h2></center>
   <img width="500" alt="Image" src="https://github.com/user-attachments/assets/e905befa-2785-40e5-b0da-a11748ea1137" />
 </div>
 
@@ -67,9 +67,8 @@ Pteranodon is a three-step process comprising an initial bash script, an interac
    -o           # output file name (optional; default is PteranodonOUT)
    -SegLen      # query sequences are split into segments of this length; units are in bases
    -MinQueryLen # filters out small contigs; units are in Megabases
-   -ScafPer     # query sequences below this percentage out of ref matches are excluded
    -t           # number of threads (optional; default is 1)
-   -auto        # automatically assemble contigs and produce a FASTA file (automating steps 2 and 3 below)
+   -auto        # automatically assemble contigs and produce a FASTA file, automating steps 2 and 3 below. 0 = off (default), 1 = on. 
    -h           # display help function
    ```
 2. Pteranodon Wings v2: https://w-korani.shinyapps.io/pteranodonwingsv2/
@@ -96,7 +95,7 @@ unzip TestingData.zip
 ```
 2. Run PteranodonBase.sh with the files **ref.fa** and **query.fa** as input to produce the file **test_out.rds**.
 ```
-PteranodonBase.sh -ref ref.fa -query query.fa -o test_out -SegLen 1000 -MinQueryLen 3 -ScafPer 0.2
+PteranodonBase.sh -ref ref.fa -query query.fa -o test_out -SegLen 1000 -MinQueryLen 3
 ```
 3. In a web browser, go to https://w-korani.shinyapps.io/pteranodonwingsv2/. Click the Browse button and select the .rds file to upload to Pteranodon Wings.
 <div align="center">
@@ -152,7 +151,7 @@ PteranodonRecurrent.sh -script data-2025-05-30.sh -query query.fa -o recurrent_t
 
 12. Alternatively, the initial script PteranodonBase.sh can be run with a flag -auto 1 that will automate all three components of Pteranodon, essentially performing for you the manual steps done in Pteranodon Wings and PteranodonRecurrent.sh. The script will output both an .rds file and a .fa file with assembled contigs. If further changes are needed, the .rds file can be opened in Pteranodon Wings for manual editing.
 ```
-PteranodonBase.sh -ref ref.fa -query query.fa -o test_out_auto -SegLen 1000 -MinQueryLen 3 -ScafPer 0.2 -auto 1
+PteranodonBase.sh -ref ref.fa -query query.fa -o test_out_auto -SegLen 1000 -MinQueryLen 3 -auto 1
 ```
 
 ## Citation
