@@ -1,8 +1,8 @@
 #!/bin/bash -i
 ##################
-source /cluster/projects/khufu/qtl_seq_II/khufu_II/utilities/KhufuEnvVer2.sh
-source /cluster/projects/khufu/korani_projects/KhufuEnv/KhufuEnv.sh
-# module load cluster/bwa/0.7.17
+##################
+##################
+##################
 ##################
 helpFunc()
 {
