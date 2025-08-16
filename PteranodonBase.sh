@@ -1,8 +1,8 @@
 #!/bin/bash -i
 ##################
-##################
-##################
-##################
+source /cluster/projects/khufu/qtl_seq_II/khufu_II/utilities/KhufuEnvVer2.sh
+source /cluster/projects/khufu/korani_projects/KhufuEnv/KhufuEnv.sh
+# module load cluster/bwa/0.7.17
 ##################
 helpFunc()
 {
@@ -13,7 +13,6 @@ helpFunc()
    \033[46m-/-o\033[0m  the output folder and prefix
    \033[46m-/--SegLen\033[0m  query sequences are split into  segments of this size in bases
    \033[46m-/--MinQueryLen\033[0m  query sequences less than this this megabases are excluded
-   \033[46m-/--ScafPer\033[0m  query seqeunces less than this percentage out of ref matches are excluded 
    \033[46m-/--auto\033[0m   scafolds/contigs will be redirected and assigned automatically to the relative homologe
    "
    exit 1
@@ -25,12 +24,11 @@ out=""
 t=4
 SegLen=1000
 MinQueryLen=10
-ScafPer=0.1
 auto=0
 ##################
 ##################
 SOPT='t:o:h'
-LOPT=('ref' 'query' 'SegLen' 'MinQueryLen' 'ScafPer' 'auto')
+LOPT=('ref' 'query' 'SegLen' 'MinQueryLen' 'auto')
 OPTS=$(getopt -q -a --options ${SOPT} --longoptions "$(printf "%s:," "${LOPT[@]}")" --name "$(basename "$0")" -- "$@")
 eval set -- $OPTS
 while [[ $# > 0 ]]; do
@@ -42,7 +40,6 @@ while [[ $# > 0 ]]; do
 		--query) query=$2 && shift ;;
 		--SegLen) SegLen=$2 && shift ;;
 		--MinQueryLen) MinQueryLen=$2 && shift ;;
-      --ScafPer) ScafPer=$2 && shift ;;
       --auto) auto=$2 && shift ;;
 		esac
     shift
@@ -58,7 +55,6 @@ echo "ref=$ref"
 echo "query=$query"
 echo "SegLen=$SegLen"
 echo "MinQueryLen=$MinQueryLen"
-echo "ScafPer=$ScafPer"
 echo "auto=$auto"
 ##################
 if [ -d "$out" ] ; then rm -r "$out"; fi
@@ -69,21 +65,31 @@ currDir=$(pwd)
 ###
 # ref processing
 fastaSeqLen "$ref" | sort -Vrk2 > "$out"/ref.stat
-mkdir "$out"/ref
-cat $ref > "$out"/ref/ref.fa
-bwa index "$out"/ref/ref.fa
+######
+if [[ ! -e "$ref".bwt ]]; 
+then 
+   echo "WARNING: ref index is not found"; 
+   mkdir "$out"/ref
+   cat $ref > "$out"/ref/ref.fa
+   bwa index "$out"/ref/ref.fa
+   ref=""$out"/ref/ref.fa"
+fi
+# mkdir "$out"/ref
+# cat $ref > "$out"/ref/ref.fa
+# bwa index "$out"/ref/ref.fa
 ###
 # query procssing
-fastaFilterLen "$query" $(echo $MinQueryLen | awk '{print $0*1e6}')> "$out"/Query.fa
+fastaFilterLen "$query" $(echo $MinQueryLen | awk '{print $0*1e6}') > "$out"/Query.fa
 fastaSeqLen "$out"/Query.fa | sort -Vrk2 > "$out"/Query.stat
 fasta2kmer "$out"/Query.fa "$SegLen" "$SegLen" > "$out"/Query.seg.fa
 ###
 ## mapping, filtering & reformating
-bwa mem -M -t $t "$out"/ref/ref.fa "$out"/Query.seg.fa -o "$out"/Query.sam
+# bwa mem -M -t $t "$out"/ref/ref.fa "$out"/Query.seg.fa -o "$out"/Query.sam
+bwa mem -M -t $t "$ref" "$out"/Query.seg.fa -o "$out"/Query.sam
 cat "$out"/Query.sam | grep -v 'SA:Z:' |awk '{if($5==60 || $5 == "") print($0)}' | grep -v '@' | cut -f1-6 | awk -v SegLen=$""$SegLen"M" '{if($6 == SegLen) {print $0} }' | tr '_' '\t'  | cut -f 1,2,4,5 | sort -k3,3V -k4,4n | awk -v SegLen=$SegLen 'OFS="\t"{print $1,($2*SegLen)-SegLen,$3,$4}'  > "$out"/Query.sam2
 cat "$out"/Query.sam2 | awk '{print $1"%"$3"\t"$0}' > "$out"/Query.sam2.txt1
 cat "$out"/Query.sam2.txt1 | cut -f 1,4 | sort | uniq -c | sed -E "s:^ +::g" | tr ' ' '\t' | awk -v SegLen=$SegLen '{print $3"\t"$2"\t"$1*SegLen}' > "$out"/Query.sam2.txt2
-merge "$out"/Query.sam2.txt2 "$out"/ref.stat | grep -vw "NA" | awk -v ScafPer=$ScafPer '{if($3/$4>ScafPer) {print $2}}' > "$out"/Query.sam2.txt3
+merge "$out"/Query.sam2.txt2 "$out"/ref.stat | grep -vw "NA" | awk '{print $2}' > "$out"/Query.sam2.txt3
 merge "$out"/Query.sam2.txt3 "$out"/Query.sam2.txt1 > "$out"/Query.sam3
 ##########################################################################################
 ##########################################################################################
@@ -108,6 +114,12 @@ then
       for id in $(cat "$out"/CHRs/"$chr".list)
       do
          cat "$out"/CHRs/"$chr".txt2 | awk -v id=$id '{if($1==id) print $0}' > "$out"/CHRs/"$chr"."$id".txt3
+
+if (( $(cat "$out"/CHRs/"$chr"."$id".txt3 | wc -l | awk -v SegLen=$SegLen -v MinQueryLen=$MinQueryLen '{if ($0*SegLen/1e6 > MinQueryLen) {print 1}else{print 0}}') == 0 ))
+then
+   continue
+fi
+
          X=$(slopeDS "$out"/CHRs/"$chr"."$id".txt3 "V4" "V2" | awk '{if($0>0) {print 1} else {print 0} }')
          if [[ $X == 1 ]]
          then
@@ -127,6 +139,15 @@ then
    cat "$out"/CHRs/*.fa4 > "$out".fa
    echo ">>> ""$out".fa was produced "<<<"
    cat "$out"/CHRs/*.txt4 | awk '{print $5"%"$3"\t"$0}' > "$out"/Query.sam4
+   ##########################################################################################
+   Rscript -e 'args = commandArgs(trailingOnly=TRUE)
+   library("ggplot2")
+   A = as.data.frame(data.table::fread(args[1],header=FALSE))
+   B=A[,c(1,3,5,2)]
+   colnames(B)=c("chr","pos1","pos2","contig")
+   G = ggplot(B,aes(pos1,pos2,color=contig)) + geom_point() + facet_wrap(.~chr, scale="free",ncol=4) + theme(axis.text.x = element_text(angle = 45, vjust = 01, hjust=1)) + theme(legend.position = "bottom")
+   pdf(args[2],width=14,height=14); print(G); dev.off()
+   ' "$out"/Query.sam4 "$out".pdf
    ##########################################################################################
 elif [[ $auto == 0 ]]
 then
